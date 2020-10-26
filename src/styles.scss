@@ -1,0 +1,39 @@
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.container {
+  width: 98%;
+  padding-left: 1%;
+  padding-right: 1%;
+
+  .mat-card.content {
+    padding: 25px;
+
+    .mat-card-title {
+      margin-bottom: 30px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #eee;
+      font-size: 30px;
+    }
+  }
+}
+
+.mat-toolbar-row, .mat-toolbar-single-row {
+    height: auto !important;
+}
+
+:focus {
+  outline: none !important;
+}
+
+.flex-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}

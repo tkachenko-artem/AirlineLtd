@@ -1,0 +1,13 @@
+.mat-table {
+    width: 100%;
+
+    .flight-part {
+        vertical-align: inherit;
+
+        .plane-icon {
+            transform: rotate(90deg);
+            vertical-align: inherit;
+            cursor: pointer;
+        }
+    }
+}

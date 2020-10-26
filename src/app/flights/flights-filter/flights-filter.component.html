@@ -1,0 +1,58 @@
+<form [formGroup]="filtersForm">
+    <div class="flex-row">
+        <mat-form-field>
+            <mat-label>Origin</mat-label>
+            <mat-select [formControlName]="FORM_ORIGIN_COUNTRY">
+                <mat-option [value]="DEFAULT_ANY_OPTION">Any</mat-option>
+                <mat-option *ngFor="let item of originCountries" [value]="item"> {{item}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Destination</mat-label>
+            <mat-select [formControlName]="FORM_DESTINATION_COUNTRY">
+                <mat-option [value]="DEFAULT_ANY_OPTION">Any</mat-option>
+                <mat-option *ngFor="let item of destinationCountries" [value]="item"> {{item}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>From</mat-label>
+            <input matInput [ngxMatDatetimePicker]="fromPicker" placeholder="Choose from date"
+                class="mat-datepicker-input" [formControlName]="FORM_FROM_DATE" readonly>
+            <mat-icon class="date-clear" matDatepickerToggleIcon (click)="clearDate($event, FORM_FROM_DATE)"
+                matTooltip="Clear">
+                clear
+            </mat-icon>
+            <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker #fromPicker></ngx-mat-datetime-picker>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>To</mat-label>
+            <input matInput [ngxMatDatetimePicker]="toPicker" placeholder="Choose to date" class="mat-datepicker-input"
+                [formControlName]="FORM_TO_DATE" readonly>
+            <mat-icon class="date-clear" matDatepickerToggleIcon (click)="clearDate($event, FORM_TO_DATE)"
+                matTooltip="Clear">
+                clear
+            </mat-icon>
+            <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker #toPicker></ngx-mat-datetime-picker>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Max Connections</mat-label>
+            <mat-select [formControlName]="FORM_CONNECTIONS_COUNT" matTooltip="Need to choose Origin/Destination"
+                [disabled]="!isConnectionsAvailable">
+                <mat-option *ngFor="let item of connectionsCounts" [value]="item">
+                    {{item === 0 ? 'Direct flight' : item}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="flex-row">
+        <ng5-slider [(value)]="MIN_PRICE" [(highValue)]="MAX_PRICE" [options]="priceOptions"
+         (userChangeEnd)="onPriceChangeEnd($event)"></ng5-slider>
+    </div>
+</form>

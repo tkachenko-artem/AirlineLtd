@@ -1,0 +1,76 @@
+<section>
+    <mat-card class="content">
+        <mat-card-title>Flights Timetable</mat-card-title>
+
+        <app-flights-filter (filterChanged)="onFilter($event)"></app-flights-filter>
+
+        <table mat-table [dataSource]="dataSource"
+            matSort [matSortActive]="DEFAULT_SORT_FIELD" matSortDisableClear matSortDirection="desc">
+            <!-- Flight Column -->
+            <ng-container matColumnDef="flight">
+                <th mat-header-cell *matHeaderCellDef> Flight </th>
+                <td mat-cell *matCellDef="let element">
+                    <span class="flight-part" *ngFor="let item of element.items; let isFirst = first">
+                        <ng-container *ngIf="isFirst">
+                            {{item.origin.country}}
+                        </ng-container>
+                        
+                        <mat-icon class="plane-icon" [matTooltip]="getTooltipTitle(item)">
+                            airplanemode_active
+                        </mat-icon>
+                        {{item.destination.country}}
+                    </span>
+                </td>
+            </ng-container>
+
+            <!-- Connections Column -->
+            <ng-container matColumnDef="connections">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Number Of Connections </th>
+                <td mat-cell *matCellDef="let element">
+                    <span *ngIf="element.items.length === 1">
+                        Direct flight
+                    </span>
+
+                    <span *ngIf="element.items.length > 1">
+                        {{element.items.length - 1}}
+                    </span>                    
+                </td>
+            </ng-container>
+
+            <!-- From Column -->
+            <ng-container matColumnDef="from">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Depart Time </th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.firstOrigin.date | date:'MM/dd/yy, H:mm'}}
+                </td>
+            </ng-container>
+
+            <!-- To Column -->
+            <ng-container matColumnDef="to">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Arrival Time </th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.lastDestination.date | date:'MM/dd/yy, H:mm'}}
+                </td>
+            </ng-container>
+
+            <!-- Price Column -->
+            <ng-container matColumnDef="price">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Total Price </th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.totalPrice | currency}}
+                </td>
+            </ng-container>
+
+            <!-- Length Column -->
+            <ng-container matColumnDef="length">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Total Flight Length </th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.totalLength | formatMoment: FORMAT_TIME_DURATION}}
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </mat-card>
+</section>

@@ -1,0 +1,28 @@
+$menu-hover: steelblue;
+
+#menu {
+    display: flex;
+
+    .spacer {
+        flex: 1 1 auto;
+    }
+
+    .item {
+        padding: 9px;
+
+        &:hover {
+            cursor: pointer;
+            background-color: $menu-hover;
+        }
+
+        &.active {
+            background-color: $menu-hover;
+        }
+    }
+
+    .mat-toolbar {
+        span {
+            font-size: 16px;
+        }
+    }
+}
